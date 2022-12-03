@@ -4,7 +4,7 @@ def send_hello(email):
     send_mail(
         'Вас привестствует крутой сайт',
         'привет как дела?',
-        'read87488@gmail.com',
+        '',
         [email]
     )
 
