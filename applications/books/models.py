@@ -5,8 +5,9 @@ User = get_user_model()
 
 
 class Books(models.Model):
+    DoesNotExist = None
     title = models.CharField(max_length=80)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, default=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='books')
 
     def __str__(self):

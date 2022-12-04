@@ -15,7 +15,7 @@ class RegisterAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response('You saved!', status=201)
+        return Response('Успешно! К вам на почту отправлен код активации', status=201)
 
 
 class LoginApiView(APIView):
