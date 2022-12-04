@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
-
 from applications.account.send_mail import send_confirmation_email
+
 
 User = get_user_model()
 
@@ -53,9 +53,6 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError('Неверный email или пароль')
         attrs['user'] = user
         return attrs
-
-
-
 
 
 

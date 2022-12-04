@@ -1,12 +1,10 @@
+from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 from rest_framework import status
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from applications.account.send_mail import send_hello
 from applications.account.serializers import RegisterSerializer, LoginSerializer
-
 
 User = get_user_model()
 
@@ -17,19 +15,11 @@ class RegisterAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response('Вы успешно зарегистрировались. /'
-                        ' Вам отправлено письмо с активацией', status=201
-                        )
-
-#
-# class LoginApiView(ObtainAuthToken):
-#     serializer_class = LoginSerializer
+        return Response('You saved!', status=201)
 
 
-@api_view(['POST'])
-def send_hello_api_view(request):
-    send_hello('read87488@gmail.com')
-    return Response('Письмо отправлено')
+class LoginApiView(APIView):
+    serializer = LoginSerializer
 
 
 class ActivationApiView(APIView):
@@ -41,7 +31,7 @@ class ActivationApiView(APIView):
             user.save()
             return Response({'msg': 'Успешно'}, status=status.HTTP_200_OK)
         except User.DoesNotExist:
-            return Response({'msg': 'Неверный код!'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'msg': 'Неверный код'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

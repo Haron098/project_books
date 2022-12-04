@@ -1,30 +1,25 @@
-from django.contrib.auth import get_user_model
 from django.shortcuts import render
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from applications.books.models import Books
-from applications.books.serializers import BooksSerializer
-from django.db import models
-User = get_user_model()
+from applications.books.serializers import BookSerializer
 
 
-class BookListApiView(ListAPIView):
+class ListCreateBookApiView(ListCreateAPIView):
     queryset = Books.objects.all()
-    serializer_class = BooksSerializer
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class BookCreateApiView(CreateAPIView):
-    serializer_class = BooksSerializer
-    permission_classes = [IsAuthenticated]
+class RetUpdDelBookApiView(RetrieveUpdateDestroyAPIView):
+    queryset = Books.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 
-class BookUpdateApiView(UpdateAPIView):
-    serializer_class = BooksSerializer
-    permission_classes = [IsAuthenticated]
 
 
-class BookDeleteApiView(DestroyAPIView):
-    serializer_class = BooksSerializer
-    permission_classes = [IsAuthenticated]
+
+

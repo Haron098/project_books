@@ -44,6 +44,7 @@ class CustomUser(AbstractUser):
     activation_code = models.CharField(max_length=40, blank=True)
 
     objects = UserManager()
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -54,3 +55,7 @@ class CustomUser(AbstractUser):
         import uuid
         code = str(uuid.uuid4())
         self.activation_code = code
+
+    class Meta:
+        verbose_name_plural = 'Accounts'
+        verbose_name = 'Account'

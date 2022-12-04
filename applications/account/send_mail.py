@@ -1,13 +1,5 @@
 from django.core.mail import send_mail
 
-def send_hello(email):
-    send_mail(
-        'Вас привестствует крутой сайт',
-        'привет как дела?',
-        '',
-        [email]
-    )
-
 
 def send_confirmation_email(email, code):
     full_link = f'http://localhost:8000/account/activate/{code}'
